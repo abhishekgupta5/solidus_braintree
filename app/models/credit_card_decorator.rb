@@ -1,3 +1,9 @@
-Spree::CreditCard.include SolidusBraintree::SkipRequireCardNumbersConcern
-# Spree::CreditCard.include SolidusBraintree::AddNameValidationConcern
-Spree::CreditCard.include SolidusBraintree::UseDataFieldConcern
+module CreditCardDecorator
+  def self.included(base)
+    base.include SolidusBraintree::SkipRequireCardNumbersConcern
+    # base.include SolidusBraintree::AddNameValidationConcern
+    base.include SolidusBraintree::UseDataFieldConcern
+  end
+
+  Spree::CreditCard.prepend(self)
+end
